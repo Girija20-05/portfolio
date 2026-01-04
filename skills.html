@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills with Progress Indicators</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c1a2d 0%, #1a3a5f 100%);
+            color: #e0e7ff;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #4dabf7, #da77f2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a5d8ff;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* Skills section styling */
+        #skills {
+            margin-top: 2rem;
+        }
+        
+        #skills-heading {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #74c0fc;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        #skills-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #339af0, #748ffc);
+            border-radius: 2px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .skill-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: rgba(96, 165, 250, 0.4);
+        }
+        
+        .skill-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #a5d8ff;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .skill-card h3 i {
+            color: #4dabf7;
+        }
+        
+        .skill-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .skill-list li {
+            margin-bottom: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            color: #dbe4ff;
+        }
+        
+        /* Progress bar styling */
+        .progress-container {
+            height: 10px;
+            background-color: rgba(100, 116, 139, 0.3);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 0.3rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 5px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+        
+        /* Individual progress bar colors */
+        .cybersecurity-progress {
+            background: linear-gradient(90deg, #ff6b6b, #ffa8a8);
+        }
+        
+        .development-progress {
+            background: linear-gradient(90deg, #51cf66, #94d82d);
+        }
+        
+        .tools-progress {
+            background: linear-gradient(90deg, #748ffc, #da77f2);
+        }
+        
+        /* Progress percentages */
+        .progress-percent {
+            font-weight: 700;
+            font-size: 0.9rem;
+            min-width: 40px;
+            text-align: right;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+        
+        .legend-cybersecurity {
+            background: linear-gradient(90deg, #ff6b6b, #ffa8a8);
+        }
+        
+        .legend-development {
+            background: linear-gradient(90deg, #51cf66, #94d82d);
+        }
+        
+        .legend-tools {
+            background: linear-gradient(90deg, #748ffc, #da77f2);
+        }
+        
+        .progress-note {
+            text-align: center;
+            margin-top: 2rem;
+            font-style: italic;
+            color: #a5b4cb;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            #skills-heading {
+                font-size: 2rem;
+            }
+            
+            body {
+                padding: 1rem;
+            }
+        }
+        
+        /* Animation for progress bars */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .skill-card {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .skill-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .skill-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Professional Skills & Expertise</h1>
+            <p class="subtitle">Detailed breakdown of technical skills with visual progress indicators to showcase proficiency levels across cybersecurity, development, and tools/platforms.</p>
+        </header>
+        
+        <!-- Skills Section -->
+        <section id="skills" aria-labelledby="skills-heading">
+            <h2 id="skills-heading">Core Skills</h2>
+            <div class="grid">
+                <div class="skill-card" role="region" aria-label="Cybersecurity skills">
+                    <h3><i class="fas fa-shield-alt"></i> Cybersecurity</h3>
+                    <ul class="skill-list">
+                        <li>
+                            <div class="skill-name">
+                                <span>Security Tools: Burp Suite, Wireshark, Nmap, Metasploit</span>
+                                <span class="progress-percent" id="cyber-1">65%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar cybersecurity-progress" data-width="90"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="skill-name">
+                                <span>Cryptography, Steganography</span>
+                                <span class="progress-percent" id="cyber-2">50%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar cybersecurity-progress" data-width="85"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="skill-name">
+                                <span>Reverse engineering, Kali Linux</span>
+                                <span class="progress-percent" id="cyber-3">70%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar cybersecurity-progress" data-width="80"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="skill-name">
+                                <span>Network Security & Forensics</span>
+                                <span class="progress-percent" id="cyber-4">60%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar cybersecurity-progress" data-width="88"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="skill-card" role="region" aria-label="Development skills">
+                    <h3><i class="fas fa-code"></i> Development</h3>
+                    <ul class="skill-list">
+                        <li>
+                            <div class="skill-name">
+                                <span>Frontend: HTML, CSS, JavaScript, React, Bootstrap</span>
+                                <span class="progress-percent" id="dev-1">88%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar development-progress" data-width="92"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="skill-name">
+                                <span>Programming: C, Java, Python</span>
+                                <span class="progress-percent" id="dev-2">77%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar development-progress" data-width="87"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="skill-name">
+                                <span>Figma (UI/UX Design)</span>
+                                <span class="progress-percent" id="dev-3">78%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar development-progress" data-width="78"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="skill-name">
+                                <span>Docker, Ollama, Mistral</span>
+                                <span class="progress-percent" id="dev-4">80%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar development-progress" data-width="82"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="skill-card" role="region" aria-label="Tools and platforms">
+                    <h3><i class="fas fa-tools"></i> Tools & Platforms</h3>
+                    <ul class="skill-list">
+                        <li>
+                            <div class="skill-name">
+                                <span>Operating Systems: Windows, Linux (Kali, Ubuntu)</span>
+                                <span class="progress-percent" id="tools-1">70%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar tools-progress" data-width="95"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="skill-name">
+                                <span>TryHackMe (Legend Level), Hack The Box, PicoCTF</span>
+                                <span class="progress-percent" id="tools-2">88%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar tools-progress" data-width="90"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="skill-name">
+                                <span>ESP8266,Embedded System/IOT</span>
+                                <span class="progress-percent" id="tools-3">70%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar tools-progress" data-width="85"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="skill-name">
+                                <span>VS Code, Wireshark, Nmap</span>
+                                <span class="progress-percent" id="tools-4">88%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar tools-progress" data-width="88"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color legend-cybersecurity"></div>
+                    <span>Cybersecurity Skills</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color legend-development"></div>
+                    <span>Development Skills</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color legend-tools"></div>
+                    <span>Tools & Platforms</span>
+                </div>
+            </div>
+            
+            <p class="progress-note">Progress indicators represent self-assessed proficiency levels based on experience and expertise.</p>
+        </section>
+    </div>
+
+    <script>
+        // Function to animate progress bars when they come into view
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            
+            progressBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width + '%';
+            });
+        }
+        
+        // Animate progress bars when page loads
+        window.addEventListener('load', function() {
+            // Small delay to ensure CSS animations complete first
+            setTimeout(animateProgressBars, 500);
+        });
+        
+        // Add interactivity: Update progress on click (for demonstration)
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const progressBars = this.querySelectorAll('.progress-bar');
+                
+                // Reset and re-animate
+                progressBars.forEach(bar => {
+                    bar.style.width = '0%';
+                });
+                
+                setTimeout(() => {
+                    progressBars.forEach(bar => {
+                        const width = bar.getAttribute('data-width');
+                        bar.style.width = width + '%';
+                    });
+                }, 100);
+            });
+        });
+        
+        // Optional: Add a button to reset and replay all animations
+        const resetButton = document.createElement('button');
+        resetButton.textContent = 'Replay Animations';
+        resetButton.style.cssText = `
+            display: block;
+            margin: 2rem auto;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(90deg, #339af0, #748ffc);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        `;
+        
+        resetButton.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
+        });
+        
+        resetButton.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+        
+        resetButton.addEventListener('click', function() {
+            const allProgressBars = document.querySelectorAll('.progress-bar');
+            
+            // Reset all progress bars
+            allProgressBars.forEach(bar => {
+                bar.style.width = '0%';
+            });
+            
+            // Re-animate after a short delay
+            setTimeout(animateProgressBars, 300);
+        });
+        
+        document.getElementById('skills').appendChild(resetButton);
+    </script>
+</body>
+</html>

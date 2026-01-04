@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifications Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --dark: #121826;
+            --dark-light: #1e293b;
+            --light: #f8f9fa;
+            --gray: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border-radius: 12px;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        .header-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .header-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: var(--border-radius);
+            padding: 20px 25px;
+            min-width: 180px;
+            text-align: center;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Certifications Section */
+        #certifications {
+            margin-top: 40px;
+        }
+
+        #certifications-heading {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #certifications-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 1rem;
+        }
+
+        .cert-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            transition: var(--transition);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(67, 97, 238, 0.3);
+        }
+
+        .cert-card:hover::before {
+            width: 8px;
+        }
+
+        .cert-icon {
+            font-size: 2.2rem;
+            color: var(--primary);
+            background: rgba(67, 97, 238, 0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .cert-info {
+            flex: 1;
+        }
+
+        .cert-info strong {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--light);
+        }
+
+        .cert-issuer {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cert-issuer i {
+            font-size: 0.9rem;
+        }
+
+        .cert-view-btn {
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .cert-view-btn:hover {
+            background: linear-gradient(90deg, var(--primary-dark), var(--secondary));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        /* Filter Buttons */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            background: rgba(30, 41, 59, 0.7);
+            color: var(--light);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            background: rgba(67, 97, 238, 0.2);
+            border-color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-color: transparent;
+        }
+
+        /* Modal for certificate viewing */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--dark-light);
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-modal:hover {
+            color: var(--light);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+
+        .modal-issuer {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-body {
+            margin-top: 20px;
+        }
+
+        .modal-certificate-img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .modal-description {
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .modal-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .modal-skill {
+            background: rgba(67, 97, 238, 0.15);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .modal-btn.view {
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        /* Animation for cards */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-title {
+                font-size: 2.2rem;
+            }
+            
+            #certifications-heading {
+                font-size: 2rem;
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-card {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
+
+        /* Stagger animation for cards */
+        .cert-card:nth-child(1) { animation-delay: 0.1s; }
+        .cert-card:nth-child(2) { animation-delay: 0.2s; }
+        .cert-card:nth-child(3) { animation-delay: 0.3s; }
+        .cert-card:nth-child(4) { animation-delay: 0.4s; }
+        .cert-card:nth-child(5) { animation-delay: 0.5s; }
+        .cert-card:nth-child(6) { animation-delay: 0.6s; }
+        .cert-card:nth-child(7) { animation-delay: 0.7s; }
+        .cert-card:nth-child(8) { animation-delay: 0.8s; }
+        .cert-card:nth-child(9) { animation-delay: 0.9s; }
+        .cert-card:nth-child(10) { animation-delay: 1.0s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="header-title">Certifications Portfolio</h1>
+            <p class="header-subtitle">A curated collection of professional certifications in cybersecurity, development, and emerging technologies from leading organizations.</p>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">9</div>
+                    <div class="stat-label">Total Certifications</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Cybersecurity</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Development</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Emerging Tech</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Certifications Section -->
+        <section id="certifications" aria-labelledby="certifications-heading">
+            <h2 id="certifications-heading">Certifications</h2>
+            
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">All Certifications</button>
+                <button class="filter-btn" data-filter="cybersecurity">Cybersecurity</button>
+                <button class="filter-btn" data-filter="development">Development</button>
+                <button class="filter-btn" data-filter="emerging">Emerging Tech</button>
+            </div>
+            
+            <div class="grid">
+                <!-- Cisco Certification -->
+                <div class="cert-card fade-in" data-cert="cisco" data-category="cybersecurity">
+                    <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="cert-info">
+                        <strong>Introduction to Cyber Security</strong>
+                        <div class="cert-issuer"><i class="fas fa-building"></i> CISCO</div>
+                        <button class="cert-view-btn" data-cert-id="cisco">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CWL Certification -->
+                <div class="cert-card fade-in" data-cert="cwl" data-category="cybersecurity">
+                    <div class="cert-icon"><i class="fas fa-user-secret"></i></div>
+                    <div class="cert-info">
+                        <strong>Cyber Security Analyst [C3SA]</strong>
+                        <div class="cert-issuer"><i class="fas fa-university"></i> CyberWarfare Lab</div>
+                        <button class="cert-view-btn" data-cert-id="cwl">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TATA Certification -->
+                <div class="cert-card fade-in" data-cert="tata" data-category="cybersecurity">
+                    <div class="cert-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="cert-info">
+                        <strong>Cyber Security Analyst Job Simulation</strong>
+                        <div class="cert-issuer"><i class="fas fa-industry"></i> TATA Group</div>
+                        <button class="cert-view-btn" data-cert-id="tata">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                
+
+                <!-- Oracle Certification -->
+                <div class="cert-card fade-in" data-cert="oracle" data-category="emerging">
+                    <div class="cert-icon"><i class="fas fa-robot"></i></div>
+                    <div class="cert-info">
+                        <strong>Oracle AI Foundations Associate</strong>
+                        <div class="cert-issuer"><i class="fas fa-database"></i> Oracle</div>
+                        <button class="cert-view-btn" data-cert-id="oracle">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Linux Foundation Certification -->
+                <div class="cert-card fade-in" data-cert="linux" data-category="development">
+                    <div class="cert-icon"><i class="fab fa-linux"></i></div>
+                    <div class="cert-info">
+                        <strong>LFD121: Developing Secure Software</strong>
+                        <div class="cert-issuer"><i class="fas fa-code"></i> The Linux Foundation</div>
+                        <button class="cert-view-btn" data-cert-id="linux">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Phishing Prevention Certification -->
+                <div class="cert-card fade-in" data-cert="phishing" data-category="cybersecurity">
+                    <div class="cert-icon"><i class="fas fa-fish"></i></div>
+                    <div class="cert-info">
+                        <strong>Certified Phishing Prevention Specialist</strong>
+                        <div class="cert-issuer"><i class="fas fa-tools"></i> Hack & Fix Academy</div>
+                        <button class="cert-view-btn" data-cert-id="phishing">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Ethical Hacking Certification -->
+                <div class="cert-card fade-in" data-cert="ethical" data-category="cybersecurity">
+                    <div class="cert-icon"><i class="fas fa-user-ninja"></i></div>
+                    <div class="cert-info">
+                        <strong>Ethical Hacking</strong>
+                        <div class="cert-issuer"><i class="fas fa-graduation-cap"></i> Eduskills Academy</div>
+                        <button class="cert-view-btn" data-cert-id="ethical">
+                            <i class="fas fa-external-link-alt"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                
+
+                <!-- Certificate Cards Section -->
+        
+        <!-- Cybersecurity Career Starter Certification -->
+        <div class="cert-card fade-in" data-cert="careerstarter" data-category="cybersecurity">
+            <div class="cert-icon"><i class="fas fa-rocket"></i></div>
+            <div class="cert-info">
+                <strong>Cybersecurity Career Starter Certification</strong>
+                <div class="cert-issuer"><i class="fas fa-graduation-cap"></i> Hack & Fix Academy</div>
+                <button class="cert-view-btn" data-cert-id="careerstarter">
+                    <i class="fas fa-external-link-alt"></i> View Certificate
+                </button>
+            </div>
+        </div>
+        
+        <!-- Learnathon 2024 Certificate -->
+        <div class="cert-card fade-in" data-cert="learnathon2024" data-category="learning">
+            <div class="cert-icon"><i class="fas fa-award"></i></div>
+            <div class="cert-info">
+                <strong>Learnathon 2024 - ICT Academy</strong>
+                <div class="cert-issuer"><i class="fas fa-university"></i> ICT Academy</div>
+                <button class="cert-view-btn" data-cert-id="learnathon2024">
+                    <i class="fas fa-external-link-alt"></i> View Certificate
+                </button>
+            </div>
+        </div>
+        
+    </div>
+</section>
+        <!-- Certificate Modal -->
+        <div class="modal" id="certificateModal">
+            <div class="modal-content">
+                <button class="close-modal" id="closeModal">&times;</button>
+                <h2 class="modal-title" id="modalTitle">Certificate Title</h2>
+                <div class="modal-issuer" id="modalIssuer"><i class="fas fa-building"></i> Issuing Organization</div>
+                
+                <div class="modal-body">
+                    <img src="https://via.placeholder.com/800x500/1e293b/4361ee?text=Certificate+Preview" alt="Certificate Preview" class="modal-certificate-img" id="modalImage">
+                    
+                    <p class="modal-description" id="modalDescription">
+                        This certificate demonstrates proficiency in the subject matter and successful completion of the required coursework and assessments.
+                    </p>
+                    
+                    <div class="modal-skills" id="modalSkills">
+                        <!-- Skills will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <a class="modal-btn view" id="viewCertificate" target="_blank">
+                            <i class="fas fa-eye"></i> View Certificate PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 Professional Certifications Portfolio | Last Updated: December 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // Certificate data for the modal - UPDATED WITH REAL PDF LINKS
+        const certificateData = {
+            cisco: {
+                title: "Introduction to Cyber Security",
+                pdfUrl: "cisco.pdf",
+                issuer: "CISCO Networking Academy",
+                description: "This certificate validates foundational knowledge in cybersecurity principles, threats, vulnerabilities, and defense mechanisms. Covers essential concepts for securing networks and systems.",
+                skills: ["Network Security", "Threat Analysis", "Security Principles", "Cisco Tools"],
+                category: "cybersecurity"
+            },
+            cwl: {
+                title: "Cyber Security Analyst [C3SA]",
+                pdfUrl: "CWL.pdf",
+                issuer: "CyberWarfare Lab",
+                description: "Professional certification demonstrating skills in cybersecurity analysis, threat detection, incident response, and security monitoring. Validates hands-on experience with security tools and methodologies.",
+                skills: ["Security Analysis", "Incident Response", "Threat Detection", "Security Monitoring"],
+                category: "cybersecurity"
+            },
+            tata: {
+                title: "Cyber Security Analyst Job Simulation",
+                pdfUrl: "analyst.pdf",
+                issuer: "TATA Group",
+                description: "Job simulation program that provides practical experience in real-world cybersecurity scenarios. Covers security assessment, vulnerability management, and enterprise security practices.",
+                skills: ["Job Simulation", "Enterprise Security", "Vulnerability Management", "Security Assessment"],
+                category: "cybersecurity"
+            },
+            tryhackme: {
+                title: "Advent of Cyber 2025",
+                pdfUrl: "Aoc2025.pdf",
+                issuer: "TryHackMe",
+                description: "Completed the annual cybersecurity training event covering various security topics through hands-on challenges. Demonstrates practical skills in penetration testing and defensive security.",
+                skills: ["Penetration Testing", "Hands-on Challenges", "Security Defense", "TryHackMe Platform"],
+                category: "cybersecurity"
+            },
+            oracle: {
+                title: "Oracle AI Foundations Associate",
+                pdfUrl: "eCertificate.pdf",
+                issuer: "Oracle",
+                description: "Certification validating foundational knowledge in artificial intelligence concepts, machine learning principles, and Oracle AI solutions. Demonstrates understanding of AI implementation strategies.",
+                skills: ["Artificial Intelligence", "Machine Learning", "Oracle AI", "AI Foundations"],
+                category: "emerging"
+            },
+            linux: {
+                title: "LFD121: Developing Secure Software",
+                pdfUrl: "linux foundation.pdf",
+                issuer: "The Linux Foundation",
+                description: "Certification focusing on secure software development practices, covering secure coding principles, vulnerability prevention, and security testing methodologies for software projects.",
+                skills: ["Secure Coding", "Software Security", "Vulnerability Prevention", "Linux Foundation"],
+                category: "development"
+            },
+            phishing: {
+                title: "Certified Phishing Prevention Specialist",
+                pdfUrl: "CPPS.pdf",
+                issuer: "Hack & Fix Academy",
+                description: "Specialist certification in identifying, preventing, and mitigating phishing attacks. Covers email security, user awareness training, and technical controls against social engineering threats.",
+                skills: ["Phishing Prevention", "Email Security", "Social Engineering", "User Awareness"],
+                category: "cybersecurity"
+            },
+            ethical: {
+                title: "Ethical Hacking",
+                pdfUrl: "eduskill.pdf",
+                issuer: "Eduskills Academy",
+                description: "Comprehensive ethical hacking certification covering penetration testing methodologies, vulnerability assessment, and legal frameworks for authorized security testing.",
+                skills: ["Ethical Hacking", "Penetration Testing", "Vulnerability Assessment", "Security Testing"],
+                category: "cybersecurity"
+            },
+            nptel: {
+                title: "NPTEL - Introduction to IoT",
+                pdfUrl: "NPTEL.pdf",
+                issuer: "IIT Kharagpur",
+                description: "Certification from the National Programme on Technology Enhanced Learning covering Internet of Things fundamentals, architectures, protocols, and applications in modern technology.",
+                skills: ["Internet of Things", "IoT Architecture", "Sensor Networks", "IIT Curriculum"],
+                category: "emerging"
+            },
+            careerstarter: {
+                title: "Cybersecurity Career Starter Certification",
+                pdfUrl: "CCSC.pdf",
+                issuer: "Hack & Fix Academy",
+                description: "Comprehensive certification program designed to kickstart a career in cybersecurity. Covers fundamental concepts, tools, and practical skills needed for entry-level cybersecurity positions.",
+                skills: ["Security Fundamentals", "Career Development", "Cybersecurity Tools", "Entry-Level Skills"],
+                category: "cybersecurity"
+            },
+            learnathon2024: {
+                 title: "Learnathon 2024 - ICT Academy",
+                 pdfUrl: "learn.pdf", 
+                 issuer: "ICT Academy",
+                 description: "Successfully completed 8 courses in Learnathon 2024 organized by ICT Academy from August - October 2024. Technologies covered: Bentley, AWS, MongoDB, and more.",
+                 skills: ["Cloud Computing", "Database Management", "Engineering Tools", "Continuous Learning"],
+                 category: "learning"
+}
+        };
+
+        // DOM Elements
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const certCards = document.querySelectorAll('.cert-card');
+        const certViewButtons = document.querySelectorAll('.cert-view-btn');
+        const modal = document.getElementById('certificateModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalIssuer = document.getElementById('modalIssuer');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalSkills = document.getElementById('modalSkills');
+        const modalImage = document.getElementById('modalImage');
+        const viewCertificateBtn = document.getElementById('viewCertificate');
+
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                // Filter certificates
+                certCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    
+                    if (filter === 'all' || filter === category) {
+                        card.style.display = 'flex';
+                        // Add animation
+                        card.classList.add('fade-in');
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Certificate view modal functionality
+        certViewButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const certId = button.getAttribute('data-cert-id');
+                const certData = certificateData[certId];
+                
+                // Update modal content
+                modalTitle.textContent = certData.title;
+                modalIssuer.innerHTML = `<i class="fas fa-building"></i> ${certData.issuer}`;
+                modalDescription.textContent = certData.description;
+                
+                // Update skills
+                modalSkills.innerHTML = '';
+                certData.skills.forEach(skill => {
+                    const skillElement = document.createElement('span');
+                    skillElement.className = 'modal-skill';
+                    skillElement.textContent = skill;
+                    modalSkills.appendChild(skillElement);
+                });
+                
+                // Update image (using placeholder for demo)
+                modalImage.src = `https://via.placeholder.com/800x500/1e293b/4361ee?text=${encodeURIComponent(certData.title)}`;
+                modalImage.alt = `${certData.title} Certificate`;
+                
+                // Set up view certificate button
+                viewCertificateBtn.href = certData.pdfUrl;
+                viewCertificateBtn.innerHTML = `<i class="fas fa-eye"></i> View Certificate PDF`;
+                
+                // Show modal
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modal functionality
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside content
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Animate cards on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            certCards.forEach((card, index) => {
+                card.style.animationDelay = `${0.1 + (index * 0.1)}s`;
+            });
+        });
+    </script>
+</body>
+</html>
